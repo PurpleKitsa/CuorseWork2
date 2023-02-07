@@ -108,6 +108,7 @@ public class MethodsForWork {
 
 
             System.out.println("Введите дату в формате DD.MM.YYYY");
+
             scanner.close();
         }
     }
