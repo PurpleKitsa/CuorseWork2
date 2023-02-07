@@ -5,6 +5,7 @@ public enum Type {
     PERSONAL("рабочая");
     private final String typeTask;
 
+
     Type(String typeTask) {
         this.typeTask = typeTask;
     }

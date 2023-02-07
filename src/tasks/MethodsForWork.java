@@ -96,6 +96,7 @@ public class MethodsForWork {
     }
 
     public static void printTaskByDay(Scanner scanner) {
+
         System.out.println("Введите дату в формате DD.MM.YYYY");
         if (scanner.hasNext(DATE_PATTERN)) {
             String date = scanner.next(DATE_PATTERN);
