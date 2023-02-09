@@ -43,21 +43,19 @@ public class MethodsForWork {
             taskTime = LocalDateTime.parse(dateTame, DATE_TIME_FORMATTER);
         } else {
             System.out.println("Введите дату и время в формате DD.MM.yyyy HH:MM");
-            scanner.close();
         }
         if (taskTime == null) {
 
             System.out.println("Введите дату и время в формате DD.MM.YYYY HH:MM");
-            scanner.close();
         }
         System.out.println("Введите повторяемость задачи (1. однократно, 2. каждый день, 3. каждую неделю, 4. каждый месяц, 5. каждый год)");
-        Tasks task = null;
+        Task task = null;
 
         if (scanner.hasNextInt()) {
             int repeatability = scanner.nextInt();
             switch (repeatability) {
                 case 1:
-                    task = new OneTimeTask(title, description, taskTime, type);
+                    task = new OneTimeTask(title,description,taskTime,type);
                     break;
                 case 2:
                     task = new DailyTask(title, description, taskTime, type);
@@ -73,7 +71,6 @@ public class MethodsForWork {
                     break;
                 default:
                     System.out.println("Повторяемость введена неверно!");
-                    scanner.close();
             }
         }
         taskService.add(task);
@@ -96,19 +93,20 @@ public class MethodsForWork {
     }
 
     public static void printTaskByDay(Scanner scanner) {
+
         System.out.println("Введите дату в формате DD.MM.YYYY");
         if (scanner.hasNext(DATE_PATTERN)) {
             String date = scanner.next(DATE_PATTERN);
             LocalDate inputDate = LocalDate.parse(date, DATE_FORMATTER);
-            Collection<Tasks> tasksByDay = taskService.getAllByDate(inputDate);
-            for (Tasks tasks : tasksByDay) {
-                System.out.println(tasks);
+            Collection<Task> taskByDay = taskService.getAllByDate(inputDate);
+            for (Task task : taskByDay) {
+                System.out.println(task);
             }
         } else {
 
 
             System.out.println("Введите дату в формате DD.MM.YYYY");
-            scanner.close();
+
         }
     }
 }

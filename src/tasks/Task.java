@@ -5,7 +5,8 @@ import exception.IncorrectArgumentException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public abstract class Tasks implements Repeatable {
+public abstract class Task implements Repeatable {
+
     private String heading;
     private String description;
     private int id;
@@ -13,7 +14,7 @@ public abstract class Tasks implements Repeatable {
     private LocalDateTime dateTime;
     private Type type;
 
-    public Tasks(String heading, String description, LocalDateTime dateTime, Type type) throws IncorrectArgumentException {
+    public Task(String heading, String description, LocalDateTime dateTime, Type type) throws IncorrectArgumentException {
         setHeading(heading);
         setDescription(description);
         if (dateTime != null) {
@@ -70,8 +71,8 @@ public abstract class Tasks implements Repeatable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Tasks tasks = (Tasks) o;
-        return id == tasks.id && heading.equals(tasks.heading) && description.equals(tasks.description) && dateTime.equals(tasks.dateTime) && type == tasks.type;
+        Task task = (Task) o;
+        return id == task.id && heading.equals(task.heading) && description.equals(task.description) && dateTime.equals(task.dateTime) && type == task.type;
     }
 
     @Override
@@ -83,4 +84,6 @@ public abstract class Tasks implements Repeatable {
     public String toString() {
         return "Задача: " + "Заголовок - " + heading + " Описание - " + description + " id - " + id + " Время и дата - " + dateTime + " Тип - " + type;
     }
+
+    public abstract LocalDateTime getTaskNextTime(LocalDateTime dateTime);
 }

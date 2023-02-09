@@ -5,6 +5,7 @@ import static tasks.MethodsForWork.*;
 
 public class Main {
     public static void main(String[] args) throws IncorrectArgumentException {
+
         try (Scanner scanner = new Scanner(System.in)) {
             label:
             while (true) {
