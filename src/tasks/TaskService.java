@@ -10,47 +10,46 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TaskService {
-    private final Map<Integer, Tasks> tasksMap = new HashMap<>();
-    private static ArrayList<Tasks> removedTasks = new ArrayList<>();
+    private final Map<Integer, Task> tasksMap = new HashMap<>();
+    private static ArrayList<Task> removedTasks = new ArrayList<>();
 
-    public void add(Tasks tasks) {
-        this.tasksMap.put(tasks.getId(), tasks);
+    public static void add(Task task) {
+        this.tasksMap.put(task.getId(), task);
     }
 
 
     public void remove(Integer taskId) throws TaskNotFoundException {
         if (this.tasksMap.containsKey(taskId)) {
-            removedTasks.add(tasksMap.get(taskId));
-            this.tasksMap.remove(taskId);
+            removedTasks.add(tasksMap.remove(taskId));
         } else {
             throw new TaskNotFoundException(taskId);
         }
     }
 
-    public Collection<Tasks> getAllByDate(LocalDate date) {
-        Collection<Tasks> tasksByDay = new ArrayList<>();
-        Collection<Tasks> allTasks = tasksMap.values();
-        for (Tasks tasks : allTasks) {
-            LocalDateTime currentDateTime = tasks.getDateTime();
+    public Collection<Task> getAllByDate(LocalDate date) {
+        Collection<Task> taskByDay = new ArrayList<>();
+        Collection<Task> allTasks = tasksMap.values();
+        for (Task task : allTasks) {
+            LocalDateTime currentDateTime = task.getDateTime();
             if (currentDateTime.toLocalDate().equals(date)) {
-                tasksByDay.add(tasks);
+                taskByDay.add(task);
                 break;
             }
             LocalDateTime taskNextTime = currentDateTime;
             do {
-                taskNextTime = tasks.getTaskNextTime(taskNextTime);
+                taskNextTime = task.getTaskNextTime(taskNextTime);
                 if (taskNextTime == null) {
                     break;
                 }
                 if (taskNextTime.toLocalDate().equals(date)) {
-                    tasksByDay.add(tasks);
+                    taskByDay.add(task);
                     break;
                 }
 
             }
             while (taskNextTime.toLocalDate().isBefore(date));
         }
-        return tasksByDay;
+        return taskByDay;
 
     }
 }
